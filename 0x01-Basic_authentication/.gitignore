@@ -2,4 +2,8 @@
 .idea
 *.log
 tmp/
-*SimpleAPI*
+SimpleAPI/bin
+SimpleAPI/lib
+SimpleAPI/lib64
+*.cfg
+SimplAPI/include
