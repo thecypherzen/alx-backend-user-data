@@ -7,3 +7,4 @@ SimpleAPI/lib
 SimpleAPI/lib64
 *.cfg
 SimplAPI/include
+*__pycache__*
