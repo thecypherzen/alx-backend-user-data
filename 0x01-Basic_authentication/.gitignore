@@ -6,5 +6,9 @@ SimpleAPI/bin
 SimpleAPI/lib
 SimpleAPI/lib64
 *.cfg
-SimplAPI/include
+bin
+lib
+include
+lib64
+pyenv.cfg
 *__pycache__*
