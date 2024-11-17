@@ -31,3 +31,24 @@ class BasicAuth(Auth):
         if not match:
             return None
         return authorization_header.split()[1]
+
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
+        """Decodes a base64 string to utf-8
+
+        Returns:
+           - None if base64_authorization_header is None
+           - None if base64_authorization_header is not a string
+           - None if base64_authorization_header is not a valid
+           - Otherwise:
+             - the decoded value as UTF8 string using decode('utf-8')
+        """
+        if any([not base64_authorization_header,
+                not isinstance(base64_authorization_header, str)]):
+            return None
+        from base64 import b64decode as decode
+        try:
+            res = str(decode(base64_authorization_header), "utf=8")
+            return res
+        except Exception:
+            return None
