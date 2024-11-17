@@ -10,4 +10,24 @@ class BasicAuth(Auth):
 
     Empty for now
     """
-    pass
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
+        """Extracts the Bearer from Authentication header
+
+        Returns:
+           - None if authorization_header is None
+           - None if authorization_header is not a string
+           - None if authorization_header doesn’t start by
+             Basic (with a space at the end)
+           - Otherwise the base64 encoding of value after
+             Basic (after the space)
+           - Assume authorization_header contains only one Basic
+        """
+        import re
+        if any([not authorization_header,
+                not isinstance(authorization_header, str)]):
+            return None
+        match = re.match(r"Basic .+", authorization_header)
+        if not match:
+            return None
+        return authorization_header.split()[1]
