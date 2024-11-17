@@ -16,11 +16,13 @@ class Auth:
            - True if authentication is required
            - False otherwise
         """
+        print(path, excluded_paths)
         if path is None or not isinstance(path, str) \
            or not excluded_paths:
             return True
         if path[-1] != '/':
             path += '/'
+        print("final path:", path)
         if path not in excluded_paths:
             return True
         return False
@@ -33,7 +35,9 @@ class Auth:
         Returns:
            None
         """
-        return None
+        if not request:
+            return None
+        return request.headers.get("Authorization")
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Gets the currently logged in user if there is
