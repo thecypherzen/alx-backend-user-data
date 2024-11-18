@@ -16,13 +16,11 @@ class Auth:
            - True if authentication is required
            - False otherwise
         """
-        print(path, excluded_paths)
         if path is None or not isinstance(path, str) \
            or not excluded_paths:
             return True
         if path[-1] != '/':
             path += '/'
-        print("final path:", path)
         if path not in excluded_paths:
             return True
         return False
