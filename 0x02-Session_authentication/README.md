@@ -8,13 +8,13 @@ Coming soon
 
 
 ## Folder Details ###
-- **Date Created:** Wed Nov 13 2024
+- **Date Created:** Mon Nov 18 2024
 - **Author:** [William Inyam](https.//github.com/thecypherzen).
 - **Project Timeline:**
-- **Released:** Mon Nov 11 - 6am.
-  - **1st Deadline** Thur Nov 14 2024 - 6am.
+- **Released:** Wed Nov 13 - 6am.
+  - **1st Deadline** Fri Nov 15 2024 - 6am.
   - **Duration:** 48hrs
-  - **Completed:** Mon Nov 18 2024 - 5:45am
+  - **Completed:** TBD
 
 
 ## Files  ###
