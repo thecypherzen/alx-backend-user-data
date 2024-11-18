@@ -24,6 +24,7 @@ elif getenv('AUTH_TYPE') == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """ Not found handler
@@ -61,6 +62,7 @@ def before_request():
             if not auth.current_user(request):
                 abort(403)
         setattr(request, 'current_user', auth.current_user(request))
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
