@@ -1,0 +1,15 @@
+.DS_Store
+.idea
+*.log
+tmp/
+SimpleAPI/bin
+SimpleAPI/lib
+SimpleAPI/lib64
+*.cfg
+bin
+lib
+include
+lib64
+pyenv.cfg
+*__pycache__*
+*.json
