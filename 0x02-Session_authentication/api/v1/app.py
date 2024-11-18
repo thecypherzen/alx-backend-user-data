@@ -16,11 +16,13 @@ auth = None
 
 if getenv('AUTH_TYPE') == 'auth':
     from api.v1.auth.auth import Auth
-    auth = Auth
+    auth = Auth()
 elif getenv('AUTH_TYPE') == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-
+elif getenv('AUTH_TYPE') == 'session_auth':
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -48,17 +50,17 @@ def before_request():
     """Executes before each request
     """
     excluded = ['/api/v1/status/', '/api/v1/unauthorized/',
-                '/api/v1/forbidden/']
+                '/api/v1/forbidden/', '/api/v1/auth_session/login/']
     if auth:
         require_auth = auth.require_auth(path=request.path,
                                          excluded_paths=excluded)
         if require_auth:
-            if not auth.authorization_header(request):
+            if not auth.authorization_header(request) and \
+               not auth.session_cookie(request):
                 abort(401)
             if not auth.current_user(request):
                 abort(403)
-        request.current_user = auth.current_user(request)
-
+        setattr(request, 'current_user', auth.current_user(request))
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
