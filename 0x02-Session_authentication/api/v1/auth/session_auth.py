@@ -36,3 +36,14 @@ class SessionAuth(Auth):
         if not session_id or not isinstance(session_id, str):
             return None
         return SessionAuth.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """Fetches user instance from cookie value
+        """
+        session_id = self.session_cookie(request)
+        if not session_id:
+            return None
+
+        from models.user import User
+        user_id = self.user_id_for_session_id(session_id)
+        return User.get(user_id)
