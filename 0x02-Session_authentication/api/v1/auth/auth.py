@@ -4,6 +4,10 @@
 
 from flask import request
 from typing import List, TypeVar
+from os import environ
+
+
+environ['SESSION_NAME'] = '_my_session_id'
 
 
 class Auth:
@@ -57,3 +61,16 @@ class Auth:
            - the requesting user
         """
         return None
+
+    def session_cookie(self, request=None):
+        """Fetches a cookie from request
+
+        Returns:
+           - None if request is None
+           - value of cookied named '_my_session_id' from 'request'.
+             the name of the cookie is defined by the environment
+             variable SESSION_NAME
+        """
+        if not request:
+            return None
+        return request.cookies.get(environ.get('SESSION_NAME'))
