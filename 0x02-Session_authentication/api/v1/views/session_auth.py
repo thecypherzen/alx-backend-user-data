@@ -3,7 +3,7 @@
 """
 
 from api.v1.views import app_views
-from flask import json, request, Response
+from flask import json, jsonify, request, Response
 from models.user import User
 from os import environ
 
@@ -19,9 +19,10 @@ def session_auth():
         return jsonify({"error": "email missing"}), 400
     if not password:
         return jsonify({"error": "password missing"}), 400
-    user = User.search(attributes={"email": email})[0]
+    user = User.search(attributes={"email": email})
     if not user:
         return jsonify({"error": "no user found for this email"}), 404
+    user = user[0]
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
     from api.v1.app import auth
