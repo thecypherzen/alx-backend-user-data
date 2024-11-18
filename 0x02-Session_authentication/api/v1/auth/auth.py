@@ -7,9 +7,6 @@ from typing import List, TypeVar
 from os import environ
 
 
-environ['SESSION_NAME'] = '_my_session_id'
-
-
 class Auth:
     """Authentication Class Definition
     """
