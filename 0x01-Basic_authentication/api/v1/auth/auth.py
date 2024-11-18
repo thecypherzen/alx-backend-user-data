@@ -19,11 +19,14 @@ class Auth:
         if path is None or not isinstance(path, str) \
            or not excluded_paths:
             return True
-        if path[-1] != '/':
-            path += '/'
-        if path not in excluded_paths:
+        status = True
+        for expath in excluded_paths:
+            if expath[-1] == '*':
+                if expath[0:-1] == path[0:len(expath) - 1]:
+                    status = False
+                    break
             return True
-        return False
+        return status
 
     def authorization_header(self, request=None) -> str:
         """Sets authorization header in a request
