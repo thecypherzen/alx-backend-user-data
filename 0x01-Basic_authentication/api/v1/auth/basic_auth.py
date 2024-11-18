@@ -3,6 +3,7 @@
 """
 
 from api.v1.auth.auth import Auth
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
@@ -76,3 +77,38 @@ class BasicAuth(Auth):
             return None, None
         credentials = decoded_base64_authorization_header.split(":")
         return credentials[0], credentials[1]
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """retrieve s user object based on credentials
+
+        Returns:
+           - None if user_email is None or not a string
+           - None if user_pwd is None or not a string
+           - None if the database (file) doesn’t contain any User
+             instance with email equal to user_email, using the class
+             method search of the User to lookup the list of
+             users based on their email.
+           - None if user_pwd is not the password of the User instance
+             found using the method is_valid_password of User
+        """
+        if any([not user_email, not isinstance(user_email, str),
+               not user_pwd, not isinstance(user_pwd, str)]):
+            return None
+        from models.user import User
+        # check if db is not empty
+        try:
+            count = User.count()
+            if not count:
+                return None
+        except Exception:
+            return None
+        # fetch user with matching email and verify iff one
+        # user matches email
+        user = User.search(attributes={"email": user_email})
+        if not user or len(user) > 1 or \
+                not isinstance(user[0], User):
+            return None
+        if not user[0].is_valid_password(user_pwd):
+            return None
+        return user[0]

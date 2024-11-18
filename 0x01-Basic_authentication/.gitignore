@@ -12,3 +12,4 @@ include
 lib64
 pyenv.cfg
 *__pycache__*
+*.json
