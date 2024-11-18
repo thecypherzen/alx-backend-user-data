@@ -25,6 +25,10 @@ class Auth:
                 if expath[0:-1] == path[0:len(expath) - 1]:
                     status = False
                     break
+            else:
+                if path + '/' == expath:
+                    status = False
+                    break
             return True
         return status
 
