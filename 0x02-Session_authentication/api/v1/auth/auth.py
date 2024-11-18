@@ -64,9 +64,9 @@ class Auth:
 
         Returns:
            - None if request is None
-           - value of cookied named '_my_session_id' from 'request'.
-             the name of the cookie is defined by the environment
-             variable SESSION_NAME
+           - value of cookie from 'request'. The name of the
+             cookie is defined by the environment variable:
+             SESSION_NAME
         """
         if not request:
             return None
