@@ -25,13 +25,15 @@ class SessionDBAuth(SessionExpAuth):
         """
         if not session_id or not isinstance(session_id, str):
             return None
-        # get UserSession in db
-        user_session = UserSession.search({"session_id": session_id})
-        if not user_session:
+
+        # get UserSession in db if possible
+        try:
+            user_session = UserSession.search({"session_id": session_id})
+            if not user_session:
+                return None
+        except Exception:
             return None
-        # verify that session duration is not elapsed
-        # if elapsed, remove user_session from storage
-        # else return user_id
+
         user_id = super().user_id_for_session_id(session_id=session_id)
         if not user_id:
             user_session[0].remove()
