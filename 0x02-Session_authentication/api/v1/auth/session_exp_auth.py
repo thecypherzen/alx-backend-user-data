@@ -31,7 +31,7 @@ class SessionExpAuth(SessionAuth):
         session_id = super().create_session(user_id)
         if not session_id:
             return None
-        SessionExpAuth.user_id_by_session_id[session_id] = \
+        self.user_id_by_session_id[session_id] = \
             {"user_id": user_id, "created_at": datetime.now()}
         return session_id
 
@@ -42,9 +42,9 @@ class SessionExpAuth(SessionAuth):
 
         if not session_id:
             return None
-        if session_id not in SessionExpAuth.user_id_by_session_id:
+        if session_id not in self.user_id_by_session_id:
             return None
-        session_dic = SessionExpAuth.user_id_by_session_id[session_id]
+        session_dic = self.user_id_by_session_id[session_id]
         if self.session_duration <= 0:
             return session_dic["user_id"]
         if "created_at" not in session_dic:
