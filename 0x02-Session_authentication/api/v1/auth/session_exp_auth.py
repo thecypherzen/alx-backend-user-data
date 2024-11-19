@@ -19,7 +19,6 @@ class SessionExpAuth(SessionAuth):
         if env_value:
             try:
                 duration = int(env_value)
-                print("\tduration:", duration)
             except Exception:
                 pass
         self.session_duration = duration
