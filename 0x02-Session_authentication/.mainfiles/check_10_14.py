@@ -25,6 +25,7 @@ if __name__ == "__main__":
             print("user_id_for_session_id should return the User ID linked to the Session ID")
             exit(1)
         if user_id_r != user_id:
+            print(f"user_id_r:{user_id_r} != user_id:{user_id}")
             print("user_id_for_session_id should return the User ID linked to the Session ID")
             exit(1)
 
