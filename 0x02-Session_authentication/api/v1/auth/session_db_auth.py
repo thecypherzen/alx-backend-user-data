@@ -37,6 +37,7 @@ class SessionDBAuth(SessionExpAuth):
         user_id = super().user_id_for_session_id(session_id=session_id)
         if not user_id:
             user_session[0].remove()
+            return None
         return user_session[0].user_id
 
     def destroy_session(self, request=None):
@@ -46,11 +47,11 @@ class SessionDBAuth(SessionExpAuth):
         session_id = self.session_cookie(request)
         if not session_id:
             return False
+        user_session = UserSession.search({"session_id": session_id})
         user_id = self.user_id_for_session_id(session_id)
         if not user_id:
             return False
         del self.user_id_by_session_id[session_id]
+        if user_session:
+            user_session[0].remove(0)
         return True
-
-    def save_session(self):
-        """Persists """
