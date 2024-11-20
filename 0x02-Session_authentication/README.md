@@ -14,7 +14,7 @@ Coming soon
 - **Released:** Wed Nov 13 - 6am.
   - **1st Deadline** Fri Nov 15 2024 - 6am.
   - **Duration:** 48hrs
-  - **Completed:** TBD
+  - **Completed:** Tue Nov 19 2024 - 6:33pm
 
 
 ## Files  ###
