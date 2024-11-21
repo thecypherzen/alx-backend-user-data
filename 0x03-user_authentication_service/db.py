@@ -29,8 +29,8 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email:str,
-                 h_pwd:str) -> TypeVar("User"):
+    def add_user(self, email: str,
+                 h_pwd: str) -> TypeVar("User"):
         """Adds a user to db"""
         from user import User
         session = self._session
