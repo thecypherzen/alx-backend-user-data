@@ -31,16 +31,9 @@ class DB:
 
     def add_user(self, email: str, h_pwd: str) -> User:
         """Adds a user to db"""
-        if not isinstance(email, str) or \
-           not isinstance(h_pwd, str):
-            return None
-        session = self._session
-        try:
-            user = User(email=email, hashed_password=h_pwd)
-            session.add(user)
-            session.commit()
-        except Exception:
-            user = None
+        user = User(email=email, hashed_password=h_pwd)
+        self._session.add(user)
+        self._session.commit()
         return user
 
     def find_user_by(self,
