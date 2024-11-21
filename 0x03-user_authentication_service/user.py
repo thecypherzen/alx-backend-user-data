@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 """User DB Model"""
-from sqlalchemy import Integer, String
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import Integer, String, Column
+from sqlalchemy.ext.declarative import declarative_base
 
 
-class Base(DeclarativeBase):
-    """The base class"""
-    pass
+Base = declarative_base()
 
 
 class User(Base):
     """User Classs"""
     __tablename__ = "users"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    email: Mapped[str] = mapped_column(String(250), nullable=False)
-    hashed_password: Mapped[str] = mapped_column(String(250),
-                                                 nullable=False)
-    session_id: Mapped[str] = mapped_column(String(250))
-    reset_token: Mapped[str] = mapped_column(String(250))
+    id = Column(Integer, primary_key=True)
+    email = Column(String(250), nullable=False)
+    hashed_password = Column(String(250), nullable=False)
+    session_id = Column(String(250))
+    reset_token = Column(String(250))
