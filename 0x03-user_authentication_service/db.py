@@ -68,3 +68,26 @@ class DB:
         if self.__session:
             return self.__session
         return self._session
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Updates a user's properties
+
+        Uses `find_user_by` to locate the user to update, then will
+        update the user’s attributes as passed in the method’s
+        arguments then commit changes to the database.
+
+        Params:
+           - user_id(int): user id
+           - kwargs(mapping[str, str]): attributes to modify and their
+             new values
+
+        Raises:
+           - ValueError: If an argument that does not correspond to a
+             user's attribute is passed.
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(User, key):
+                raise ValueError
+            setattr(User, key, value)
+        self._session.commit()
