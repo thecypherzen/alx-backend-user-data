@@ -32,6 +32,9 @@ class DB:
     def add_user(self, email: str,
                  h_pwd: str) -> TypeVar("User"):
         """Adds a user to db"""
+        if not isinstance(email, str) or \
+           not isinstance(h_pwd, str):
+            return None
         from user import User
         session = self._session
         try:
