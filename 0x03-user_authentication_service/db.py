@@ -46,8 +46,7 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self,
-                     **kwargs: Mapping[str, str]) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """Finds user by keyword args
 
         Params:
