@@ -59,11 +59,9 @@ class DB:
            - The first row found in the users table as filtered by
              the input arguments.
         """
-        if kwargs is None:
-            raise InvalidRequestError
         for key in kwargs:
             if not hasattr(User, key):
-                raise InvalidRequestError()
+                raise InvalidRequestError
         user = self._session.query(User).filter_by(**kwargs).one()
         if not user:
             raise NoResultFound
