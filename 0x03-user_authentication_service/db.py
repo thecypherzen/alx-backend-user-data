@@ -60,11 +60,14 @@ class DB:
              the input arguments.
         """
         if kwargs is None:
-            raise InvalidRequestError()
+            raise InvalidRequestError
         for key in kwargs:
             if not hasattr(User, key):
                 raise InvalidRequestError()
-        return self._session.query(User).filter_by(**kwargs).one()
+        user = self._session.query(User).filter_by(**kwargs).one()
+        if not user:
+            raise NoResultFound
+        return user
 
     def __get_session(self):
         """Fetches a new session instance from pool
