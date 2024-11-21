@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from typing import TypeVar
+from typing import Mapping, Optional, TypeVar
 from user import Base, User
 
 
@@ -29,8 +29,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str,
-                 h_pwd: str) -> TypeVar("User"):
+    def add_user(self, email: str, h_pwd: str) -> User:
         """Adds a user to db"""
         if not isinstance(email, str) or \
            not isinstance(h_pwd, str):
@@ -44,7 +43,8 @@ class DB:
             user = None
         return user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self,
+                     **kwargs: Mapping[str, str]) -> Optional[User]:
         """Finds user by keyword args
 
         Raises:
