@@ -3,7 +3,9 @@
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.session import Session
 from typing import Mapping
 from user import Base, User
@@ -57,8 +59,6 @@ class DB:
            - The first row found in the users table as filtered by
              the input arguments.
         """
-        from sqlalchemy.exc import InvalidRequestError
-
         if kwargs is None:
             raise InvalidRequestError()
         for key in kwargs:
