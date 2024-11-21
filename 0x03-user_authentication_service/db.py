@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from typing import Mapping, Optional, TypeVar
+from typing import Mapping
 from user import Base, User
 
 
@@ -45,9 +45,11 @@ class DB:
         return user
 
     def find_user_by(self,
-                     **kwargs: Mapping[str, str]) -> Optional[User]:
+                     **kwargs: Mapping[str, str]) -> User:
         """Finds user by keyword args
 
+        Params:
+           - kwargs(Obj[str, str]): keyword arguments of attributes
         Raises:
            - NoResultFound: when no results are found
            - InvalidRequestError: when wrong query arguments are passed
@@ -55,10 +57,14 @@ class DB:
            - The first row found in the users table as filtered by
              the input arguments.
         """
-        session = self.__get_session()
+        from sqlalchemy.exc import InvalidRequestError
+
         if kwargs is None:
             raise InvalidRequestError()
-        return session.query(User).filter_by(**kwargs).one()
+        for key in kwargs:
+            if not hasattr(User, key):
+                raise InvalidRequestError()
+        return self._session.query(User).filter_by(**kwargs).one()
 
     def __get_session(self):
         """Fetches a new session instance from pool
