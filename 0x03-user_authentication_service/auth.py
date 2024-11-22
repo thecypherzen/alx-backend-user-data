@@ -106,6 +106,17 @@ class Auth:
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
 
+    def update_password(self, reset_token: str,
+                        password: str) -> None:
+        """Updates a users password
+        """
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            user.hashed_password = _hash_password(password)
+            user.reset_token = None
+        except Exception:
+            raise ValueError()
+
     def valid_login(self, email: str, password: str) -> bool:
         """Checks if credentials match that of a user
 
