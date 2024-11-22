@@ -39,7 +39,7 @@ class Auth:
             return None
 
     def get_user_from_session_id(
-            self, session_id: str | None = None) -> User | None:
+            self, session_id: str) -> User | None:
         """Finds a user by session_id
 
            Params:
