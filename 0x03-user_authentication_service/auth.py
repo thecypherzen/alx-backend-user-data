@@ -27,7 +27,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def create_session(self, email: str) -> str | None:
+    def create_session(self, email: str) -> str:
         """Creates a session instance
         """
         try:
