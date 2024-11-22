@@ -3,7 +3,8 @@
 from auth import Auth
 from flask import (
     abort, Flask, json,
-    jsonify, request, Response
+    jsonify, request, redirect,
+    Response, url_for
 )
 
 
@@ -45,6 +46,7 @@ def logout():
     if not user:
         abort(403)
     AUTH.destroy_session(user.id)
+    return redirect(url_for(index))
 
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
