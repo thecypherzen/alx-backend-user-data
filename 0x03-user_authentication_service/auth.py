@@ -6,6 +6,14 @@ from user import User
 import bcrypt
 
 
+def _generate_uuid() -> str:
+    """Generates a uuid
+    """
+    from uuid import uuid4
+
+    return str(uuid4())
+
+
 def _hash_password(password: str) -> bytes:
     """Generates a hashed password
     """
