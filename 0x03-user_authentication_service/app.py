@@ -19,9 +19,11 @@ def index():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/reset_password", strict_slashes=False)
+@app.route("/reset_password", methods=["POST"], strict_slashes=False)
 def get_reset_password_token():
-    """Gets a Password reset token for user
+    """POST /reset_password
+
+    Gets a Password reset token for user
     """
     email = request.form.get("email")
     try:
