@@ -38,6 +38,24 @@ class Auth:
         except Exception:
             return None
 
+    def get_user_from_session_id(
+            self, session_id: str | None = None) -> User | None:
+        """Finds a user by session_id
+
+           Params:
+              - session_id(str): the user's session_id
+
+           Returns:
+              The User with <session_id> if found else None
+        """
+        if not session_id or not isinstance(session_id, str):
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
+        except Exception:
+            return None
+
     def register_user(self, email: str,
                       password: str) -> User:
         """Creates and adds a new user to the db
