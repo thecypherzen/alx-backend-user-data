@@ -77,6 +77,23 @@ def profile():
     return jsonify({"email": f"{user.email}"})
 
 
+@app.route("/reset_password", methods=["PUT"], strict_slashes=False)
+def update_password():
+    """PUT /reset_password
+
+    Updates a user's password
+    """
+    email = request.form.get("email")
+    token = request.form.get("reset_token")
+    new_pass = request.form.gte("new_password")
+    try:
+        AUTH.update_password(token, new_pass)
+        return jsonify({"email": f"{email}",
+                        "message": "Password updated"})
+    except ValueError:
+        abort(403)
+
+
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def users() -> str:
     """POST: /users
