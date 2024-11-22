@@ -34,6 +34,19 @@ def login():
     return response
 
 
+@app.route("/logout", methods=["DELETE"], strict_slashes=False)
+def logout():
+    """DELETE /logout
+
+    Logs user out of application
+    """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(sesson_id)
+    if not user:
+        abort(403)
+    AUTH.destroy_session(user.id)
+
+
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def users() -> str:
     """POST: /users
