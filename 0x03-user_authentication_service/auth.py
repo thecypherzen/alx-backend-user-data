@@ -49,6 +49,19 @@ class Auth:
         except Exception:
             pass
 
+    def get_reset_password_token(email: str) -> str:
+        """Generates a password reset token
+        """
+        from uuid import uuid4
+
+        try:
+            user = self._db.find_user_by(email=email)
+            token = str(uuid4())
+            user.reset_token = token
+            return token
+        except Exception:
+            raise ValueError
+
     def get_user_from_session_id(self, session_id: str) -> User:
         """Finds a user by session_id
 
