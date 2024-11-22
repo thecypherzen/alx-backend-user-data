@@ -49,6 +49,19 @@ def logout():
     return redirect(url_for("index"))
 
 
+@app.route("/profile", strict_slashes=False)
+def profile():
+    """GET /profile
+
+    Gets a user's profile
+    """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if not user:
+        abort(403)
+    return jsonify({"email": f"{user.email}"})
+
+
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def users() -> str:
     """POST: /users
