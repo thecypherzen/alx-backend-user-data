@@ -19,6 +19,19 @@ def index():
     return jsonify({"message": "Bienvenue"})
 
 
+@app.route("/reset_password", strict_slashes=False)
+def get_reset_password_token():
+    """Gets a Password reset token for user
+    """
+    email = request.form.get("email")
+    try:
+        reset_token = AUTH.get_reset_password_token(email)
+        return jsonify({"email": f"{email}",
+                        "reset_token": f"{reset_token}"})
+    except ValueError:
+        abort(403)
+
+
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login():
     """POST /sessions
