@@ -38,10 +38,16 @@ class Auth:
         except Exception:
             return None
 
-    def destroy_session(self):
+    def destroy_session(self, user_id: int) -> None:
         """Removes a user from session
+
+        Updates current user's session_id to None
         """
-        pass
+        try:
+            user = self._db.find_user_by(id=user_id)
+            user.session_id = None
+        except Exception:
+            pass
 
     def get_user_from_session_id(self, session_id: str) -> User:
         """Finds a user by session_id
