@@ -27,6 +27,17 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
+    def create_session(self, email: str) -> str | None:
+        """Creates a session instance
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            user.session_id = session_id
+            return session_id
+        except Exception:
+            return None
+
     def register_user(self, email: str,
                       password: str) -> User:
         """Creates and adds a new user to the db
