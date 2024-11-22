@@ -38,6 +38,11 @@ class Auth:
         except Exception:
             return None
 
+    def destroy_session(self):
+        """Removes a user from session
+        """
+        pass
+
     def get_user_from_session_id(
             self, session_id: str) -> User | None:
         """Finds a user by session_id
@@ -48,7 +53,7 @@ class Auth:
            Returns:
               The User with <session_id> if found else None
         """
-        if not session_id or not isinstance(session_id, str):
+        if not session_id:
             return None
         try:
             user = self._db.find_user_by(session_id=session_id)
