@@ -85,7 +85,7 @@ def update_password():
     """
     email = request.form.get("email")
     token = request.form.get("reset_token")
-    new_pass = request.form.gte("new_password")
+    new_pass = request.form.get("new_password")
     try:
         AUTH.update_password(token, new_pass)
         return jsonify({"email": f"{email}",
